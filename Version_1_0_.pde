@@ -1,3 +1,6 @@
+// NOT A FINISHED PROJECT.
+// THis is at most a prove of concept that was created over the course of a schoolday, due to boredom.
+
 void setup()
 {
   size(1000, 600);
