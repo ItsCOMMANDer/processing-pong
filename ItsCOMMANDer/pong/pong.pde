@@ -63,10 +63,11 @@ PFont font;
 JSONObject config;
 
 void setup() {
-  size(800, 600);
+  //setting up enviroment settring
+  size(1000, 720);
   frameRate(-1);
-  windowResizable(true);
 
+  //checking for existance of config file
   String configFilePath = sketchPath("data/config.json");
 
   File file = new File(configFilePath);
@@ -78,10 +79,16 @@ void setup() {
     exit();
   }
   
+  //pulling  data from config file
   config = loadJSONObject("data/config.json");
   String fontFile = config.getString("font");
+
+  //setting up font and text
   font = createFont(fontFile, 32);
-  
+  textAlign(CENTER);
+  textFont(font, 64);
+
+
   background(#00000000);  
 
   noFill();
@@ -89,8 +96,11 @@ void setup() {
 }
 
 void draw() {
-  textFont(font, 64);
-  text("Pong", width/2-96, 64);
+  text("Pong", width/2, 64);
   stroke(#ffffff);
   rect((width / 2) - 128, 128, 528, 64);
+}
+
+void keyTyped() {
+  print(key);
 }
