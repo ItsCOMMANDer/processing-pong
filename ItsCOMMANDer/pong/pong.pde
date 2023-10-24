@@ -1,3 +1,5 @@
+import java.io.File;
+
 class PongPlayer {
   int colorRed;
   int colorGreen;
@@ -64,12 +66,20 @@ void setup() {
   size(800, 600);
   frameRate(-1);
   windowResizable(true);
+
+  String configFilePath = sketchPath("data/config.json");
+
+  File file = new File(configFilePath);
+
+  if (file.exists()) {
+    println("JSON file exists.");
+  } else {
+    println("JSON file does not exist.");
+    exit();
+  }
   
-  config = new JSONObject();
   config = loadJSONObject("data/config.json");
-  
   String fontFile = config.getString("font");
-  
   font = createFont(fontFile, 32);
   
   background(#00000000);  
@@ -84,16 +94,3 @@ void draw() {
   stroke(#ffffff);
   rect((width / 2) - 128, 128, 528, 64);
 }
-
-
-
-
-
-
-
-
-
-/*
-config.setString("font", "data/PixeloidSans.ttf");
-  saveJSONObject(config, "data/new.json");
-*/
