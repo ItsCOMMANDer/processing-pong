@@ -30,21 +30,22 @@ class ButtonColor {
   }
 }
 
+class ButtonData {
+  ArrayList<Integer> buttonStartX = new ArrayList<>();
+  ArrayList<Integer> buttonStartY = new ArrayList<>();
+  ArrayList<Integer> buttonEndX = new ArrayList<>();
+  ArrayList<Integer> buttonEndY = new ArrayList<>();
 
-ArrayList<Integer> buttonStartX = new ArrayList<>();
-ArrayList<Integer> buttonStartY = new ArrayList<>();
-ArrayList<Integer> buttonEndX = new ArrayList<>();
-ArrayList<Integer> buttonEndY = new ArrayList<>();
-
-ArrayList<Runnable> buttonHandlers = new ArrayList<>();
-ArrayList<String> buttonName = new ArrayList<>();
+  ArrayList<Runnable> buttonHandlers = new ArrayList<>();
+  ArrayList<String> buttonName = new ArrayList<>();
   
-ArrayList<ButtonColor> buttonColor = new ArrayList<>();
-ArrayList<Integer> buttonOutlineWidth = new ArrayList<>();
+  ArrayList<ButtonColor> buttonColor = new ArrayList<>();
+  ArrayList<Integer> buttonOutlineWidth = new ArrayList<>();
 
   ArrayList<PFont> buttonFont = new ArrayList<>();
-ArrayList<String> buttonText = new ArrayList<>();
-ArrayList<Integer> buttonTextSize = new ArrayList<>();
+  ArrayList<String> buttonText = new ArrayList<>();
+  ArrayList<Integer> buttonTextSize = new ArrayList<>();
+}
 
 class MenuButton {
     int startX;
@@ -82,45 +83,41 @@ class MenuButton {
         this.buttonName = buttonName;
         this.color = color;
 
-        buttonStartX.add(startX);
-        buttonStartY.add(startY);
-        buttonEndX.add(endX);
-        buttonEndY.add(endY);
+        buttonData.buttonStartX.add(startX);
+        buttonData.buttonStartY.add(startY);
+        buttonData.buttonEndX.add(endX);
+        buttonData.buttonEndY.add(endY);
 
-        buttonHandlers.add(functionHandler);
-        buttonName.add(buttonName);
+        buttonData.buttonHandlers.add(functionHandler);
+        buttonData.buttonName.add(buttonName);
         
-        color.add(color);
-        buttonOutlineWidth.add(outlineWidth);
+        buttonData.color.add(color);
+        buttonData.buttonOutlineWidth.add(outlineWidth);
         
-        buttonFont.add(font);
-        buttonText.add(text);
-        buttonTextSize.add(textSize);
+        buttonData.buttonFont.add(font);
+        buttonData.buttonText.add(text);
+        buttonData.buttonTextSize.add(textSize);
     }
-    public void renderButton(String buttonToRender) {
-      int buttonDataIndex = -1;
-      for(int i = 0; i < buttonName.size(); i++) {
-        if(buttonName.get(i).equals(buttonToRender)) {
+    public void renderButton(String buttonName) {
+      int buttonDataIndex;
+      for(int i = 0; i < buttonData.buttonName.size(); i++) {
+        if(buttonData.buttonName.get(i).equals(buttonName)) {
           buttonDataIndex = i;
           break;
         }
       }
-      if(buttonDataIndex == -1) {
-        println("Button " + buttonToRender + " not found.");
-        return;
-      }
-      fill(color(buttonColor.fieldRed.get(buttonDataIndex),buttonColor.fieldGreen.get(buttonDataIndex),buttonColor.fieldBlue.get(buttonDataIndex)));
-      rect(buttonStartX.get(buttonDataIndex),buttonStartY.get(buttonDataIndex),
-          buttonEndX.get(buttonDataIndex),buttonEndY.get(buttonDataIndex));
+      fill(color(buttonData.buttonColor.fieldRed.get(buttonDataIndex),buttonData.buttonColor.fieldGreen.get(buttonDataIndex),buttonData.buttonColor.fieldBlue.get(buttonDataIndex)));
+      rect(buttonData.buttonStartX.get(buttonDataIndex),buttonData.buttonStartY.get(buttonDataIndex),
+          buttonData.buttonEndX.get(buttonDataIndex),buttonData.buttonEndY.get(buttonDataIndex));
       noFill();
-      stroke(color(buttonColor.outlineRed.get(buttonDataIndex),buttonColor.outlineGreen.get(buttonDataIndex),buttonColor.outlineBlue.get(buttonDataIndex)));
-      strokeWidth(buttonOutlineWidth.get(buttonDataIndex));
-      rect(buttonStartX.get(buttonDataIndex),buttonStartY.get(buttonDataIndex),
-          buttonEndX.get(buttonDataIndex),buttonEndY.get(buttonDataIndex));
+      stroke(color(buttonData.buttonColor.outlineRed.get(buttonDataIndex),buttonData.buttonColor.outlineGreen.get(buttonDataIndex),buttonData.buttonColor.outlineBlue.get(buttonDataIndex)));
+      strokeWidth(buttonData.buttonOutlineWidth.get(buttonDataIndex));
+      rect(buttonData.buttonStartX.get(buttonDataIndex),buttonData.buttonStartY.get(buttonDataIndex),
+          buttonData.buttonEndX.get(buttonDataIndex),buttonData.buttonEndY.get(buttonDataIndex));
 
-      textSize(buttonTextSize.get(buttonDataIndex));
-      fill(color(buttonColor.textRed.get(buttonDataIndex),buttonColor.textGreen.get(buttonDataIndex),buttonColor.textBlue.get(buttonDataIndex)));
-      text(buttonText.get(buttonDataIndex), (max(startX.get(buttonDataIndex), endX.get(buttonDataIndex)) - min(startX.get(buttonDataIndex), endX.get(buttonDataIndex)))/2, (max(startY.get(buttonDataIndex), endY.get(buttonDataIndex)) - min(startY.get(buttonDataIndex), endY.get(buttonDataIndex))) / 2);
+      textSize(buttonData.buttonTextSize.get(buttonDataIndex));
+      fill(color(buttonData.buttonColor.textRed.get(buttonDataIndex),buttonData.buttonColor.textGreen.get(buttonDataIndex),buttonData.buttonColor.textBlue.get(buttonDataIndex)));
+      text(buttonData.buttonText.get(buttonDataIndex), (max(buttonData.startX.get(buttonDataIndex), buttonData.endX.get(buttonDataIndex)) - min(buttonData.startX.get(buttonDataIndex), buttonData.endX.get(buttonDataIndex)))/2, (max(buttonData.startY.get(buttonDataIndex), buttonData.endY.get(buttonDataIndex)) - min(buttonData.startY.get(buttonDataIndex), buttonData.endY.get(buttonDataIndex))) / 2);
     }
 }
 
